@@ -6,7 +6,7 @@ Started: March 25, 2026 ACM
 
 # Goals
 * **0.0.1** - Differentiate between DPViz and Vizier
-                  * Module.php
+    * Module.php
   
                   *Page.dpviz.php
                   *Dpviz.class.php
