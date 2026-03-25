@@ -9,13 +9,13 @@ global $amp_conf;
 
 $autoincrement = (($amp_conf["AMPDBENGINE"] == "sqlite") || ($amp_conf["AMPDBENGINE"] == "sqlite3")) ? "AUTOINCREMENT":"AUTO_INCREMENT";
 // Check if table exists first
-$sql = "SHOW TABLES LIKE 'dpviz'";
+$sql = "SHOW TABLES LIKE 'vizier'";
 $exists = $db->getOne($sql);
 $table_created = false;
 
 if (empty($exists)) {
     // Table doesn't exist, so create it
-    $sql = "CREATE TABLE dpviz (
+    $sql = "CREATE TABLE vizier (
         id INTEGER NOT NULL PRIMARY KEY $autoincrement,
         datetime TINYINT(1) NOT NULL DEFAULT 1,
         horizontal TINYINT(1) NOT NULL DEFAULT 0,
@@ -27,7 +27,7 @@ if (empty($exists)) {
     )";
     $check = $db->query($sql);
     if (DB::IsError($check)) {
-        die_freepbx("Can not create dpviz table");
+        die_freepbx("Can not create vizier table");
     }
 
     $table_created = true;
@@ -35,7 +35,7 @@ if (empty($exists)) {
 
 // Insert default row if the table was just created
 if ($table_created) {
-    $sql = "INSERT INTO dpviz (datetime, horizontal, panzoom, dynmembers, combineQueueRing, extOptional, fmfm) VALUES (1, 0, 1, 0, 0, 0, 0)";
+    $sql = "INSERT INTO vizier (datetime, horizontal, panzoom, dynmembers, combineQueueRing, extOptional, fmfm) VALUES (1, 0, 1, 0, 0, 0, 0)";
     $check = $db->query($sql);
     if (DB::IsError($check)) {
         die_freepbx("Failed to insert initial row");
@@ -44,115 +44,115 @@ if ($table_created) {
 
 
 // Version 0.22 adds minimal view
-$sql = "SELECT minimal FROM dpviz";
+$sql = "SELECT minimal FROM vizier";
 $check = $db->getRow($sql, DB_FETCHMODE_ASSOC);
 if(DB::IsError($check)) {
 	// add new field
-    $sql = "ALTER TABLE dpviz ADD minimal TINYINT(1) NOT NULL DEFAULT 0;";
+    $sql = "ALTER TABLE vizier ADD minimal TINYINT(1) NOT NULL DEFAULT 0;";
     $result = $db->query($sql);
     if(DB::IsError($result)) { die_freepbx($result->getDebugInfo()); }
 		
 		// Only update row if the column was just added
-    $sql = "UPDATE dpviz SET minimal = 0 WHERE id = 1;";
+    $sql = "UPDATE vizier SET minimal = 0 WHERE id = 1;";
     $result = $db->query($sql);
     if(DB::IsError($result)) { die_freepbx($result->getDebugInfo()); }
 }
 
 // Version 0.23 adds queue_member_display
-$sql = "SELECT queue_member_display FROM dpviz";
+$sql = "SELECT queue_member_display FROM vizier";
 $check = $db->getRow($sql, DB_FETCHMODE_ASSOC);
 if(DB::IsError($check)) {
 	// add new field
-    $sql = "ALTER TABLE dpviz ADD queue_member_display TINYINT(1) NOT NULL DEFAULT 2;";
+    $sql = "ALTER TABLE vizier ADD queue_member_display TINYINT(1) NOT NULL DEFAULT 2;";
     $result = $db->query($sql);
     if(DB::IsError($result)) { die_freepbx($result->getDebugInfo()); }
 		
 		// Only update row if the column was just added
-    $sql = "UPDATE dpviz SET queue_member_display = 2 WHERE id = 1;";
+    $sql = "UPDATE vizier SET queue_member_display = 2 WHERE id = 1;";
     $result = $db->query($sql);
     if(DB::IsError($result)) { die_freepbx($result->getDebugInfo()); }
 }
 
 // Version 0.23 adds ring_member_display
-$sql = "SELECT ring_member_display FROM dpviz";
+$sql = "SELECT ring_member_display FROM vizier";
 $check = $db->getRow($sql, DB_FETCHMODE_ASSOC);
 if(DB::IsError($check)) {
 	// add new field
-    $sql = "ALTER TABLE dpviz ADD ring_member_display TINYINT(1) NOT NULL DEFAULT 2;";
+    $sql = "ALTER TABLE vizier ADD ring_member_display TINYINT(1) NOT NULL DEFAULT 2;";
     $result = $db->query($sql);
     if(DB::IsError($result)) { die_freepbx($result->getDebugInfo()); }
 		
 		// Only update row if the column was just added
-    $sql = "UPDATE dpviz SET ring_member_display = 2 WHERE id = 1;";
+    $sql = "UPDATE vizier SET ring_member_display = 2 WHERE id = 1;";
     $result = $db->query($sql);
     if(DB::IsError($result)) { die_freepbx($result->getDebugInfo()); }
 }
 
 // Version 0.24 adds queue_penalty
-$sql = "SELECT queue_penalty FROM dpviz";
+$sql = "SELECT queue_penalty FROM vizier";
 $check = $db->getRow($sql, DB_FETCHMODE_ASSOC);
 if(DB::IsError($check)) {
 	// add new field
-    $sql = "ALTER TABLE dpviz ADD queue_penalty TINYINT(1) NOT NULL DEFAULT 0;";
+    $sql = "ALTER TABLE vizier ADD queue_penalty TINYINT(1) NOT NULL DEFAULT 0;";
     $result = $db->query($sql);
     if(DB::IsError($result)) { die_freepbx($result->getDebugInfo()); }
 		
 		// Only update row if the column was just added
-    $sql = "UPDATE dpviz SET queue_penalty = 0 WHERE id = 1;";
+    $sql = "UPDATE vizier SET queue_penalty = 0 WHERE id = 1;";
     $result = $db->query($sql);
     if(DB::IsError($result)) { die_freepbx($result->getDebugInfo()); }
 }
 
 // Version 0.27 adds allowlist, blacklist, autoplay
-$sql = "SELECT allowlist FROM dpviz";
+$sql = "SELECT allowlist FROM vizier";
 $check = $db->getRow($sql, DB_FETCHMODE_ASSOC);
 if(DB::IsError($check)) {
 	// add new field
-    $sql = "ALTER TABLE dpviz ADD allowlist TINYINT(1) NOT NULL DEFAULT 0;";
+    $sql = "ALTER TABLE vizier ADD allowlist TINYINT(1) NOT NULL DEFAULT 0;";
     $result = $db->query($sql);
     if(DB::IsError($result)) { die_freepbx($result->getDebugInfo()); }
 		
 		// Only update row if the column was just added
-    $sql = "UPDATE dpviz SET allowlist = 0 WHERE id = 1;";
+    $sql = "UPDATE vizier SET allowlist = 0 WHERE id = 1;";
     $result = $db->query($sql);
     if(DB::IsError($result)) { die_freepbx($result->getDebugInfo()); }
 }
 
-$sql = "SELECT blacklist FROM dpviz";
+$sql = "SELECT blacklist FROM vizier";
 $check = $db->getRow($sql, DB_FETCHMODE_ASSOC);
 if(DB::IsError($check)) {
 	// add new field
-    $sql = "ALTER TABLE dpviz ADD blacklist TINYINT(1) NOT NULL DEFAULT 0;";
+    $sql = "ALTER TABLE vizier ADD blacklist TINYINT(1) NOT NULL DEFAULT 0;";
     $result = $db->query($sql);
     if(DB::IsError($result)) { die_freepbx($result->getDebugInfo()); }
 		
 		// Only update row if the column was just added
-    $sql = "UPDATE dpviz SET blacklist = 0 WHERE id = 1;";
+    $sql = "UPDATE vizier SET blacklist = 0 WHERE id = 1;";
     $result = $db->query($sql);
     if(DB::IsError($result)) { die_freepbx($result->getDebugInfo()); }
 }
 
-$sql = "SELECT autoplay FROM dpviz";
+$sql = "SELECT autoplay FROM vizier";
 $check = $db->getRow($sql, DB_FETCHMODE_ASSOC);
 if(DB::IsError($check)) {
 	// add new field
-    $sql = "ALTER TABLE dpviz ADD autoplay TINYINT(1) NOT NULL DEFAULT 0;";
+    $sql = "ALTER TABLE vizier ADD autoplay TINYINT(1) NOT NULL DEFAULT 0;";
     $result = $db->query($sql);
     if(DB::IsError($result)) { die_freepbx($result->getDebugInfo()); }
 		
 		// Only update row if the column was just added
-    $sql = "UPDATE dpviz SET autoplay = 0 WHERE id = 1;";
+    $sql = "UPDATE vizier SET autoplay = 0 WHERE id = 1;";
     $result = $db->query($sql);
     if(DB::IsError($result)) { die_freepbx($result->getDebugInfo()); }
 }
 
 // Version 0.28 adds displaydestinations
-$sql = "SELECT displaydestinations FROM dpviz";
+$sql = "SELECT displaydestinations FROM vizier";
 $check = $db->getRow($sql, DB_FETCHMODE_ASSOC);
 
 if(DB::IsError($check)) {
     // Add new field
-    $sql = "ALTER TABLE dpviz ADD displaydestinations TINYINT(1) NOT NULL DEFAULT 0;";
+    $sql = "ALTER TABLE vizier ADD displaydestinations TINYINT(1) NOT NULL DEFAULT 0;";
     $result = $db->query($sql);
     if(DB::IsError($result)) { die_freepbx($result->getDebugInfo()); }
 
@@ -166,63 +166,63 @@ if(DB::IsError($check)) {
     // Set default based on number of routes
     $defaultValue = ($total > 100) ? 0 : 1;
 
-    $sql = "UPDATE dpviz SET displaydestinations = " . q($defaultValue) . " WHERE id = 1;";
+    $sql = "UPDATE vizier SET displaydestinations = " . q($defaultValue) . " WHERE id = 1;";
     $result = $db->query($sql);
     if(DB::IsError($result)) { die_freepbx($result->getDebugInfo()); }
 }
 
 // Version 0.30 adds inuseby
-$sql = "SELECT inuseby FROM dpviz";
+$sql = "SELECT inuseby FROM vizier";
 $check = $db->getRow($sql, DB_FETCHMODE_ASSOC);
 if(DB::IsError($check)) {
 	// add new field
-    $sql = "ALTER TABLE dpviz ADD inuseby TINYINT(1) NOT NULL DEFAULT 0;";
+    $sql = "ALTER TABLE vizier ADD inuseby TINYINT(1) NOT NULL DEFAULT 0;";
     $result = $db->query($sql);
     if(DB::IsError($result)) { die_freepbx($result->getDebugInfo()); }
 		
 		// Only update row if the column was just added
-    $sql = "UPDATE dpviz SET inuseby = 0 WHERE id = 1;";
+    $sql = "UPDATE vizier SET inuseby = 0 WHERE id = 1;";
     $result = $db->query($sql);
     if(DB::IsError($result)) { die_freepbx($result->getDebugInfo()); }
 }
 
 // Version 0.32 adds insertnode and custom_datetime
-$sql = "SELECT insertnode FROM dpviz";
+$sql = "SELECT insertnode FROM vizier";
 $check = $db->getRow($sql, DB_FETCHMODE_ASSOC);
 if(DB::IsError($check)) {
 	// add new field
-    $sql = "ALTER TABLE dpviz ADD insertnode TINYINT(1) NOT NULL DEFAULT 0;";
+    $sql = "ALTER TABLE vizier ADD insertnode TINYINT(1) NOT NULL DEFAULT 0;";
     $result = $db->query($sql);
     if(DB::IsError($result)) { die_freepbx($result->getDebugInfo()); }
 		
 		// Only update row if the column was just added
-    $sql = "UPDATE dpviz SET insertnode = 0 WHERE id = 1;";
+    $sql = "UPDATE vizier SET insertnode = 0 WHERE id = 1;";
     $result = $db->query($sql);
     if(DB::IsError($result)) { die_freepbx($result->getDebugInfo()); }
 }
 
-$sql = "SELECT custom_datetime FROM dpviz";
+$sql = "SELECT custom_datetime FROM vizier";
 $check = $db->getRow($sql, DB_FETCHMODE_ASSOC);
 if(DB::IsError($check)) {
 	// add new field
-    $sql = "ALTER TABLE dpviz ADD custom_datetime VARCHAR(20) DEFAULT NULL;";
+    $sql = "ALTER TABLE vizier ADD custom_datetime VARCHAR(20) DEFAULT NULL;";
     $result = $db->query($sql);
     if(DB::IsError($result)) { die_freepbx($result->getDebugInfo()); }
 		
 		// Only update row if the column was just added
-    $sql = "UPDATE dpviz SET custom_datetime = NULL WHERE id = 1;";
+    $sql = "UPDATE vizier SET custom_datetime = NULL WHERE id = 1;";
     $result = $db->query($sql);
     if(DB::IsError($result)) { die_freepbx($result->getDebugInfo()); }
 }
 
 // Check if table exists first
-$sql = "SHOW TABLES LIKE 'dpviz_views'";
+$sql = "SHOW TABLES LIKE 'vizier_views'";
 $exists = $db->getOne($sql);
 $table_created = false;
 
 if (empty($exists)) {
     // Table doesn't exist, so create it
-    $sql = "CREATE TABLE dpviz_views (
+    $sql = "CREATE TABLE vizier_views (
         id INTEGER NOT NULL PRIMARY KEY $autoincrement,
         description VARCHAR(50) NULL,
         ext VARCHAR(50) NULL,
@@ -231,7 +231,7 @@ if (empty($exists)) {
     )";
     $check = $db->query($sql);
     if (DB::IsError($check)) {
-        die_freepbx("Can not create dpviz_views table");
+        die_freepbx("Can not create vizier_views table");
     }
 
     $table_created = true;
