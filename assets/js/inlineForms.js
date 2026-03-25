@@ -932,7 +932,7 @@ $(document).on('change', '.btn-group.radioset input[type="radio"]', function () 
 
 		$btn.prop('disabled', true);
 
-		fetch('ajax.php?module=dpviz&command=create_destination', {
+		fetch('ajax.php?module=vizier&command=create_destination', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(payload)
@@ -1003,7 +1003,7 @@ $(document).on('change', '.btn-group.radioset input[type="radio"]', function () 
 					const currentDialplan = $('#dialPlan').val() || $('#ext').val();
 					const title           = $modal.data('title');
 
-					fetch('ajax.php?module=dpviz&command=save_nodest', {
+					fetch('ajax.php?module=vizier&command=save_nodest', {
 							method: 'POST',
 							headers: { 'Content-Type': 'application/json' },
 							body: JSON.stringify({
@@ -1111,7 +1111,7 @@ function loadTimegroups() {
 
   $sel.empty().append('<option value="">-- Loading... --</option>');
 
-  $.getJSON('ajax.php?module=dpviz&command=list_timegroups', function(res) {
+  $.getJSON('ajax.php?module=vizer&command=list_timegroups', function(res) {
     $sel.empty().append('<option value="">-- Select Time Group --</option>');
 
     if (res && res.status === 'success' && Array.isArray(res.groups)) {
@@ -1139,7 +1139,7 @@ function loadCalendars() {
 
   $sel.empty().append('<option value="">-- Loading... --</option>');
 
-  $.getJSON('ajax.php?module=dpviz&command=list_calendars', function(res) {
+  $.getJSON('ajax.php?module=vizier&command=list_calendars', function(res) {
     $sel.empty().append('<option value="">-- Select Calendar --</option>');
 
     if (res && res.status === 'success' && Array.isArray(res.groups)) {
@@ -1167,7 +1167,7 @@ function loadCalendarGroups() {
 
   $sel.empty().append('<option value="">-- Loading... --</option>');
 
-  $.getJSON('ajax.php?module=dpviz&command=list_calendargroups', function(res) {
+  $.getJSON('ajax.php?module=vizier&command=list_calendargroups', function(res) {
     $sel.empty().append('<option value="">-- Select Calendar Group --</option>');
 
     if (res && res.status === 'success' && Array.isArray(res.groups)) {
@@ -1195,7 +1195,7 @@ function loadLanguages() {
 
   $sel.empty().append('<option value="">-- Loading... --</option>');
 
-  $.getJSON('ajax.php?module=dpviz&command=list_languages', function(res) {
+  $.getJSON('ajax.php?module=vizier&command=list_languages', function(res) {
     $sel.empty().append('<option value="">-- Select Language --</option>');
 
     if (res && res.status === 'success' && res.groups && typeof res.groups === 'object') {
@@ -1231,7 +1231,7 @@ function loadMusic() {
 
   $sel.empty().append('<option value="">-- Loading... --</option>');
 
-  $.getJSON('ajax.php?module=dpviz&command=list_music', function(res) {
+  $.getJSON('ajax.php?module=vizier&command=list_music', function(res) {
     $sel.empty().append('<option value="">-- Select Music --</option>');
 
     if (res && res.status === 'success' && Array.isArray(res.groups) && res.groups.length > 0) {
@@ -1269,7 +1269,7 @@ function loadRecordings() {
 
   $sel.empty().append('<option value="">-- Loading... --</option>');
 
-  $.getJSON('ajax.php?module=dpviz&command=list_recordings', function(res) {
+  $.getJSON('ajax.php?module=vizier&command=list_recordings', function(res) {
     $sel.empty().append('<option value="">-- Select Recording --</option>');
 
     if (res && res.status === 'success' && Array.isArray(res.groups) && res.groups.length > 0) {
@@ -1417,7 +1417,7 @@ function ivrloadModulesIntoRow(rowId) {
     return;
   }
 
-  fetch("ajax.php?module=dpviz&command=nodestselect")
+  fetch("ajax.php?module=vizier&command=nodestselect")
     .then(r => r.json())
     .then(data => {
       ivrModuleCache = data;
@@ -1549,7 +1549,7 @@ function dynloadModulesIntoRow(rowId) {
     return;
   }
 
-  fetch("ajax.php?module=dpviz&command=nodestselect")
+  fetch("ajax.php?module=vizier&command=nodestselect")
     .then(r => r.json())
     .then(data => {
       dynModuleCache = data;
