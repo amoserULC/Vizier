@@ -1,7 +1,7 @@
 <?php
 if (!defined('FREEPBX_IS_AUTH')) { die('No direct script access allowed'); }
 
-$options=\FreePBX::Dpviz()->getOptions();
+$options=\FreePBX::Vizier()->getOptions();
 
 
 if ($options['displaydestinations']){
@@ -36,8 +36,8 @@ if (isset($_SESSION['AMP_user']) && is_object($_SESSION['AMP_user'])
 
 ?>
 <script>
-    window.dpvizConfig = window.dpvizConfig || {};
-    dpvizConfig.sections = <?php echo json_encode($jsSections); ?>;
+    window.vizierConfig = window.vizierConfig || {};
+    vizierConfig.sections = <?php echo json_encode($jsSections); ?>;
 </script>
 <?php
 
@@ -94,7 +94,7 @@ function dpp_load_tables() {
 
 	$tables = array('announcement','callrecording','daynight','dynroute','languages','ivr_details',
 	  'miscapps','miscdests','queues_config','ringgroups','setcid','timeconditions','virtual_queue_config',
-		'dpviz_views'
+		'vizier_views'
 	);
 	
 	$freepbx = \FreePBX::create();
@@ -114,7 +114,7 @@ function dpp_load_tables() {
 			$checkMod=$table;
 		}
 		
-		if ($table!='dpviz_views'){
+		if ($table!='vizier_views'){
 			if ($freepbx->Modules->checkStatus($checkMod)) {
 				$existingModules[] = $checkMod; //js array for new destinations
 			}else{
@@ -123,7 +123,7 @@ function dpp_load_tables() {
 			}
 		}
 		
-		$order = ($table === 'dpviz_views') ? 'ORDER BY description' : '';
+		$order = ($table === 'vizier_views') ? 'ORDER BY description' : '';
 		$query = "SELECT * FROM `$table` $order";
     $results = $db->getAll($query, DB_FETCHMODE_ASSOC);
     
@@ -184,10 +184,10 @@ function dpp_load_tables() {
 					$id = $vqueues['id'];
 					$dproute['vqueues'][$id] = $vqueues;
 				}
-		}elseif ($table == 'dpviz_views') {
-        foreach($results as $dpvizViews) {
-					$id = $dpvizViews['id'];
-					$dproute['dpvizViews'][$id] = $dpvizViews;
+		}elseif ($table == 'vizier_views') {
+        foreach($results as $vizierViews) {
+					$id = $vizierViews['id'];
+					$dproute['vizierViews'][$id] = $vizierViews;
 				}
 		}
 		
@@ -213,9 +213,9 @@ foreach($users as $user) {
 }
 
 //Saved Views
-if (isset($otherroutes['dpvizViews']) && count($otherroutes['dpvizViews']) > 0){
+if (isset($otherroutes['vizierViews']) && count($otherroutes['vizierViews']) > 0){
 	$dropOptions.='<optgroup label="' . _('Saved Views') . '">';
-	foreach ($otherroutes['dpvizViews'] as $i=>$ii){
+	foreach ($otherroutes['vizierViews'] as $i=>$ii){
 		$skipArray = explode(';', $ii['skip']);
 		$skipJson = htmlspecialchars(json_encode($skipArray), ENT_QUOTES, 'UTF-8');
 		$description = htmlspecialchars($ii['description'], ENT_QUOTES, 'UTF-8');
