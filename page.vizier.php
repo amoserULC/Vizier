@@ -9,7 +9,8 @@ $info = \FreePBX::Modules()->getInfo($module);
 $version = $info[$module]['version'];
 ?>
 <link rel="stylesheet" href="modules/vizier/assets/css/select2.min.css"  />
-<link rel="stylesheet" href="modules/vizier/assets/css/vizier.css?load_version=<?php echo $version; ?>" />
+<!-- <link rel="stylesheet" href="modules/vizier/assets/css/vizier.css?load_version=</?php echo $version; ?>" /> -->
+<link rel="stylesheet" href="/modules/vizier/assets/css/vizier.css" />
 
 <script src="modules/vizier/assets/js/html2canvas.min.js"></script>
 <script src="modules/vizier/assets/js/viz.min.js"></script>
