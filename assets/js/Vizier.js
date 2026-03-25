@@ -13,7 +13,7 @@ $(document).ready(function() {
 			);
 
 			$.ajax({
-					url: 'ajax.php?module=dpviz&command=check_update',
+					url: 'ajax.php?module=vizier&command=check_update',
 					method: 'POST',
 					dataType: 'json',
 
@@ -70,7 +70,7 @@ $(document).on('select2:open', function () {
 // store the initial value when page loads
 var originalDisplayDest = $('input[name="displaydestinations"]:checked').val() || null;
 
-$('#dpvizForm').submit(function(event) {
+$('#vizierForm').submit(function(event) {
 	event.preventDefault(); 
 
 	var $form = $(this);
@@ -163,7 +163,7 @@ function generateVisualization(ext, jump, skips) {
 	
 	spinner.style.display = "flex";
   $.ajax({
-    url: 'ajax.php?module=dpviz&command=make',
+    url: 'ajax.php?module=vizier&command=make',
     type: 'POST',
     data: JSON.stringify({
 			ext: ext,
@@ -192,7 +192,7 @@ function generateVisualization(ext, jump, skips) {
 					
 					viz.renderSVGElement(dot).then(element => {
 						//need reload?
-						fetch('ajax.php?module=dpviz&command=need_reload_status')
+						fetch('ajax.php?module=vizier&command=need_reload_status')
 						.then(r => r.json())
 						.then(res => {
 							if (res && res.status === 'success' && res.need_reload) {
@@ -597,7 +597,7 @@ function getRecording(titleid) {
 	formData.append('id', id);
 	formData.append('lang', lang);
 
-	fetch('ajax.php?module=dpviz&command=getrecording', {
+	fetch('ajax.php?module=vizier&command=getrecording', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded'
@@ -678,7 +678,7 @@ function getRecording(titleid) {
 			//console.log("Fetching file:", filename);
 
 			try {
-				const response = await fetch('ajax.php?module=dpviz&command=getfile', {
+				const response = await fetch('ajax.php?module=vizier&command=getfile', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/x-www-form-urlencoded'
@@ -937,7 +937,7 @@ document.getElementById('saveViewForm').addEventListener('submit', function (e) 
 
 	$.ajax({
 		type: 'POST',
-		url: 'ajax.php?module=dpviz&command=saveview',
+		url: 'ajax.php?module=vizier&command=saveview',
 		data: data,
 		success: function (response) {
 			fpbxToast(`${translations.viewSaved}`,'Success','success');
@@ -964,7 +964,7 @@ document.getElementById('deleteViewBtn').addEventListener('click', function () {
 	
 	$.ajax({
 		type: 'POST',
-		url: 'ajax.php?module=dpviz&command=deleteview',
+		url: 'ajax.php?module=vizier&command=deleteview',
 		data: { id: viewId },
 		success: function (response) {
 			
@@ -1008,7 +1008,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function applyCustomDateTime() {
     var dt = $('#customDateTime').val();
 
-    $.post('ajax.php?module=dpviz&command=set_simtime', { customDateTime: dt })
+    $.post('ajax.php?module=vizier&command=set_simtime', { customDateTime: dt })
         .done(function (res) {
             closeModal('customTimeModal');
             fpbxToast(`${translations.customTimeSaved}`,'info','info');
@@ -1022,7 +1022,7 @@ function applyCustomDateTime() {
 function resetCustomDateTime() {
 		document.getElementById('applyCustomDateTimeBtn').disabled = true;
 		
-    $.post('ajax.php?module=dpviz&command=set_simtime', { customDateTime: '' })
+    $.post('ajax.php?module=vizier&command=set_simtime', { customDateTime: '' })
         .done(function () {
             closeModal('customTimeModal');
 						$('#customDateTime').val('');
@@ -1305,7 +1305,7 @@ function initPanZoom(containerId) {
 let defaultSensitivity = 0.2;
 
 // Load saved value
-let wheelSensitivity = parseFloat(localStorage.getItem('dpviz_zoomSensitivity')) || defaultSensitivity;
+let wheelSensitivity = parseFloat(localStorage.getItem('vizier_zoomSensitivity')) || defaultSensitivity;
 
 // Elements
 const zoomSlider = document.getElementById('zoomSensitivity');
@@ -1320,7 +1320,7 @@ zoomValue.textContent = parseFloat(wheelSensitivity.toFixed(3));
 zoomSlider.addEventListener('input', function () {
     wheelSensitivity = parseFloat(this.value);
     zoomValue.textContent = parseFloat(wheelSensitivity.toFixed(3));
-    localStorage.setItem('dpviz_zoomSensitivity', wheelSensitivity);
+    localStorage.setItem('vizier_zoomSensitivity', wheelSensitivity);
 });
 
 // Reset to default
@@ -1328,7 +1328,7 @@ resetBtn.addEventListener('click', function () {
     wheelSensitivity = defaultSensitivity;
     zoomSlider.value = defaultSensitivity;
     zoomValue.textContent = parseFloat(defaultSensitivity.toFixed(3));
-    localStorage.setItem('dpviz_zoomSensitivity', defaultSensitivity);
+    localStorage.setItem('vizier_zoomSensitivity', defaultSensitivity);
 });
 
 
@@ -1350,7 +1350,7 @@ closeBtn.onclick = () => { modal.style.display = 'none'; };
 window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
 
 document.getElementById("coffee").addEventListener("click", function () {
-  const url = `ajax.php?module=dpviz&command=coffee`;
+  const url = `ajax.php?module=vizier&command=coffee`;
   fetch(url, { method: "POST", credentials: "same-origin" })
 });
 
@@ -1360,7 +1360,7 @@ document.getElementById('feedbackForm').addEventListener('submit', (e) => {
     const form = e.target;             // 👈 the form element
     const formData = new FormData(form);
 
-    fetch("ajax.php?module=dpviz&command=feedback", {
+    fetch("ajax.php?module=vizier&command=feedback", {
         method: "POST",
         body: formData
     })
@@ -1571,8 +1571,8 @@ $(document).on('change', '#moduleSelect', function () {
     $('#inlineNewForm').remove();
     $dest.empty().append('<option value="">-- Select Destination --</option>');
 
-    const sections = Array.isArray(window.dpvizConfig?.sections)
-        ? window.dpvizConfig.sections
+    const sections = Array.isArray(window.vizierConfig?.sections)
+        ? window.vizierConfig.sections
         : [];
 
     let canAddNew = false;
@@ -1665,7 +1665,7 @@ $(document).on('click', '#saveNoDestBtn', function () {
 		$('#inlineNewForm').remove();
 		if ($saveBtn.length) $saveBtn.prop('disabled', false);
 
-		fetch('ajax.php?module=dpviz&command=add_ivr_entry', {
+		fetch('ajax.php?module=vizier&command=add_ivr_entry', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
@@ -1713,7 +1713,7 @@ $(document).on('click', '#saveNoDestBtn', function () {
 		if ($saveBtn.length) $saveBtn.prop('disabled', false);
 
 		// NOW SAVE THE RELATIONSHIP (the missing step!)
-		fetch('ajax.php?module=dpviz&command=add_dyn_entry', {
+		fetch('ajax.php?module=vizier&command=add_dyn_entry', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
@@ -1755,7 +1755,7 @@ $(document).on('click', '#saveNoDestBtn', function () {
 		if ($saveBtn.length) $saveBtn.prop('disabled', false);
 
 		// NOW SAVE THE RELATIONSHIP (the missing step!)
-		fetch('ajax.php?module=dpviz&command=save_nodest', {
+		fetch('ajax.php?module=vizier&command=save_nodest', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
@@ -1792,7 +1792,7 @@ $(document).on('click', '#saveNoDestBtn', function () {
   /* -----------------------------------------------------
    * MODE: ORIGINAL noDest SAVE (default)
    * ----------------------------------------------------- */
-  fetch('ajax.php?module=dpviz&command=save_nodest', {
+  fetch('ajax.php?module=vizier&command=save_nodest', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -1824,7 +1824,7 @@ function loadNoDestModal(titleText) {
   $title.text(translations.newDestination || 'New Destination');
   $modal.data('mode', 'link');
 
-  fetch('ajax.php?module=dpviz&command=nodestselect')
+  fetch('ajax.php?module=vizier&command=nodestselect')
     .then(r => r.json())
     .then(data => {
       nodestData = data;
@@ -1896,8 +1896,8 @@ function loadInsertDestModal(titleText) {
     $modal.data('previous', previous);
 
     // ✅ NEW: sections come from PHP
-    const sections = Array.isArray(dpvizConfig.sections)
-        ? dpvizConfig.sections
+    const sections = Array.isArray(vizierConfig.sections)
+        ? vizierConfig.sections
         : [];
 
     const hasWildcard = sections.includes('*');
@@ -1981,7 +1981,7 @@ function loadNewSelectionModal(titleText) {
     $title.text(translations.addSelection || 'Add Selection');
     $modal.data('mode', 'add_ivr_entry');
 
-    fetch('ajax.php?module=dpviz&command=nodestselect')
+    fetch('ajax.php?module=vizier&command=nodestselect')
         .then(r => r.json())
         .then(data => {
 
@@ -1989,8 +1989,8 @@ function loadNewSelectionModal(titleText) {
             const nodestKeys = Object.keys(nodestData); // LABELS
 
             // ✅ NEW: sections come from PHP
-            const sections = Array.isArray(dpvizConfig.sections)
-                ? dpvizConfig.sections
+            const sections = Array.isArray(vizierConfig.sections)
+                ? vizierConfig.sections
                 : [];
 
             const hasWildcard = sections.includes('*');
@@ -2079,7 +2079,7 @@ function loadNewEntryModal(titleText) {
     $title.text(translations.addEntry || 'Add Entry');
     $modal.data('mode', 'add_dyn_entry');
 
-    fetch('ajax.php?module=dpviz&command=nodestselect')
+    fetch('ajax.php?module=vizier&command=nodestselect')
         .then(r => r.json())
         .then(data => {
 
@@ -2087,8 +2087,8 @@ function loadNewEntryModal(titleText) {
             const nodestKeys = Object.keys(nodestData);
 
             // ✅ sections from injected config
-            const sections = Array.isArray(window.dpvizConfig?.sections)
-                ? window.dpvizConfig.sections
+            const sections = Array.isArray(window.vizierConfig?.sections)
+                ? window.vizierConfig.sections
                 : [];
 
             const hasWildcard = sections.includes('*');
@@ -2182,8 +2182,8 @@ function openNewDestinationModal() {
     $modal.data('mode', 'create');
 
     // ✅ NEW: sections come from PHP
-    const sections = Array.isArray(dpvizConfig.sections)
-        ? dpvizConfig.sections
+    const sections = Array.isArray(vizierConfig.sections)
+        ? vizierConfig.sections
         : [];
 
     const hasWildcard = sections.includes('*');
