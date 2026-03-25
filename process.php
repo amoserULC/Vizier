@@ -30,7 +30,7 @@ require_once 'graphviz/src/Alom/Graphviz/Subgraph.php';
 require_once 'process.inc.php';
 
 //options
-$options=\FreePBX::Dpviz()->getOptions();
+$options=\FreePBX::Vizier()->getOptions();
 try{
 	$soundlang = FreePBX::create()->Soundlang;
 	$options['lang'] = $soundlang->getLanguage();
@@ -92,15 +92,15 @@ $header = "<div><h2>" . _('Error: Could not find inbound route for') ." ".$ext."
 	$gtext = $dproute['dpgraph']->render();
 	$gtext=json_encode($gtext);
 	$version= \FreePBX::Config()->get("DASHBOARD_FREEPBX_BRAND").' '.get_framework_version();
-	$modinfo = \FreePBX::Modules()->getInfo('dpviz');
-	$dpvizVersion = isset($modinfo['dpviz']['version']) ? $modinfo['dpviz']['rawname'] .' '. $modinfo['dpviz']['version'] : '0.0.0';
+	$modinfo = \FreePBX::Modules()->getInfo('vizier');
+	$vizierVersion = isset($modinfo['vizier']['version']) ? $modinfo['vizier']['rawname'] .' '. $modinfo['vizier']['version'] : '0.0.0';
 
 	$header = '
 		<h2 style="display: flex; justify-content: space-between; align-items: center; margin: 0;">
 				<span id="headerSelected"></span>
 				<span id="version" style="color: #dcdcdc; font-weight: normal; font-size: 0.5em; display: none; flex-direction: column; align-items: flex-end;">
 						<span>'.$version.'</span>
-						<span style="text-align: right; width: 100%;">'.$dpvizVersion.'</span>
+						<span style="text-align: right; width: 100%;">'.$vizierVersion.'</span>
 				</span>
 		</h2>';
 	if ($datetime==1){$header.= "<h6>".date('Y-m-d H:i:s')."</h6>";}
