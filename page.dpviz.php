@@ -4,18 +4,18 @@ if (!defined('FREEPBX_IS_AUTH')) { die('No direct script access allowed'); }
 //	Copyright 2013 Schmooze Com Inc.
 //  Copyright (C) 2011 Mikael Carlsson (mickecarlsson at gmail dot com)
 //
-$module = 'dpviz';
+$module = 'vizier';
 $info = \FreePBX::Modules()->getInfo($module);
 $version = $info[$module]['version'];
 ?>
-<link rel="stylesheet" href="modules/dpviz/assets/css/select2.min.css"  />
-<link rel="stylesheet" href="modules/dpviz/assets/css/dpviz.css?load_version=<?php echo $version; ?>" />
+<link rel="stylesheet" href="modules/vizier/assets/css/select2.min.css"  />
+<link rel="stylesheet" href="modules/vizier/assets/css/vizier.css?load_version=<?php echo $version; ?>" />
 
-<script src="modules/dpviz/assets/js/html2canvas.min.js"></script>
-<script src="modules/dpviz/assets/js/viz.min.js"></script>
-<script src="modules/dpviz/assets/js/full.render.js"></script>
-<script src="modules/dpviz/assets/js/focus.js"></script>
-<script src="modules/dpviz/assets/js/select2.min.js"></script>
+<script src="modules/vizier/assets/js/html2canvas.min.js"></script>
+<script src="modules/vizier/assets/js/viz.min.js"></script>
+<script src="modules/vizier/assets/js/full.render.js"></script>
+<script src="modules/vizier/assets/js/focus.js"></script>
+<script src="modules/vizier/assets/js/select2.min.js"></script>
 <script type="text/javascript">
 //load graphviz
 var viz = new Viz();
