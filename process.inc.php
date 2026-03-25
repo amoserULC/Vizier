@@ -1512,7 +1512,7 @@ function lazyLoadRow(&$route, $table, $id, $cidnum = '') {
 										if (!DB::isError($details) && $details) {
 											//error_log('TZ: '.$route['currentTZ']);
 											
-											$simDT = sql("SELECT custom_datetime FROM dpviz WHERE id = 1", "getOne");
+											$simDT = sql("SELECT custom_datetime FROM vizier WHERE id = 1", "getOne");
 											
 											if (timeGroupMatchesNow($details,$route['currentTZ'],$simDT)) {
 													$row['iscurrently'] = true;
