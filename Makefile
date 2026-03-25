@@ -1,6 +1,6 @@
-# Makefile for packing up the dpviz module
+# Makefile for packing up the vizier module
 
-MODULE := dpviz
+MODULE := vizier
 VERSION := $(shell sed -n '/<module>/,/<\/module>/s:.*<version>\(.*\)</version>.*:\1:p' module.xml | head -n 1)
 TARBALL := $(HOME)/$(MODULE)-$(VERSION).tar.gz
 
