@@ -1,6 +1,9 @@
+<!-- The only remaining reference to dpviz in this section is the part related to the update and buy-me-a-coffee button. This will be changed -->
+
+
 <?php if (!defined('FREEPBX_IS_AUTH')) { exit(_('No direct script access allowed')); }; 
-$modinfo = \FreePBX::Modules()->getInfo('dpviz');
-$ver = isset($modinfo['dpviz']['version']) ? $modinfo['dpviz']['version'] : '0.0.0';
+$modinfo = \FreePBX::Modules()->getInfo('vizier');
+$ver = isset($modinfo['vizier']['version']) ? $modinfo['vizier']['version'] : '0.0.0';
 ?>
 <!-- Feedback Modal -->
 <div id="feedbackModal" class="feedback-modal">
@@ -44,6 +47,7 @@ $ver = isset($modinfo['dpviz']['version']) ? $modinfo['dpviz']['version'] : '0.0
 						<div class="col-md-12">
 							<div class="row">
 								<div class="col-md-3">
+									<!-- This for sure is going to need extra attention. For now, I'm leaving this section alone" -->
 									<button id="check-update-btn" class="btn btn-default"><?php echo _('Check for Updates'); ?></button>
 										<a href="https://github.com/madgen78/dpviz/" class="emoji" title="GitHub" target="_blank"><i class="fa fa-github"></i></a>
 										<a href="https://buymeacoffee.com/adamvolchko" id="coffee" class="emoji" style="text-decoration:none;" title="<?php echo _('Buy Me a Coffee'); ?>" target="_blank">☕</a>
@@ -61,7 +65,7 @@ $ver = isset($modinfo['dpviz']['version']) ? $modinfo['dpviz']['version'] : '0.0
 						</div>
 					</div>
 				</div>
-				<form id="dpvizForm" action="ajax.php?module=dpviz&command=save_options" method="post">
+				<form id="vizierForm" action="ajax.php?module=vizier&command=save_options" method="post">
 				<!--autoplay-->
 				<div class="element-container">
 					<div class="row">
