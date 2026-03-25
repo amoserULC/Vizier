@@ -1,5 +1,5 @@
 <?php
-namespace FreePBX\modules\Dpviz;
+namespace FreePBX\modules\Vizier;
 use FreePBX\modules\Backup as Base;
 
 class Restore Extends Base\RestoreBase
