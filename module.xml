@@ -1,45 +1,21 @@
 <module>
-  <rawname>dpviz</rawname>
+  <rawname>vizier</rawname>
   <repo>unsupported</repo>
-  <name>Dial Plan Vizualizer</name>
-  <version>1.0.32</version>
-  <publisher>AdamV</publisher>
+  <name>Vizier</name>
+  <version>0.0.1</version>
+  <publisher>ACM</publisher>
   <license>GPLv3+</license>
   <licenselink>http://www.gnu.org/licenses/gpl-3.0.txt</licenselink>
 	<updateurl>https://modules.volchko.xyz/dpviz/module.json</updateurl>
-  <category>Reports</category>
-  <description>Graphical display of the dial plan for Inbound Routes</description>
+  <category>Development</category>
+  <description>Experimental fork of Dial Plan Visualizer</description>
 	<menuitems>
-		<dpviz>Dial Plan Vizualizer</dpviz>
+		<dpviz>Vizier</dpviz>
   </menuitems>
 	
   
 	<changelog>
-		*1.0.32* Create and insert destinations honoring user permissions. Show active and inactive paths for TC and CFC (also ability to simulate). Mouse zoom sensitivity. Fixed ext optional destinations.
-		*1.0.31* Fixed .png exports. #34
-		*1.0.30* Added In Use By.Resolved tampered files error for framework 17 #26 and #15. Corrected Time Conditions calendar matching bug #32
-		*1.0.29* Moved combined queue and ring group member list to parent instead of a separate node (also paging and vm blast). Set combined as default option.
-		*1.0.28* Improved graph rendering performance. Refreshed shapes with rounded corners. Improved tooltip styling. Grouped duplicate IVR destinations.
-		*1.0.27* Added dynamic queue member login status. Added DND / CF / queue pause detection. Added options for Allowlist and Blacklist modules, and Auto-play audio. Added user agents. Added next and previous buttons. Added Extensions in dropdown.
-		*1.0.26* Voicemail node message counts, queue and ring group member sorting, pan/ zoom/ exporting fixes.
-		*1.0.25* Added Feedback form. Listen to unavailable / busy voicemail nodes. Moved recordings to modules. Ext registration status in 'combined' view for queues and ring groups.
-		*1.0.24* Added Save View. Added Sanitize Labels. Added Agent Queue Penalties. Corrected French translations.
-		*1.0.23* Language translations for multiple languages. Improved Virtual Queues. FPBX 13 support.
-		*1.0.22* Added Registration statuses. Modules: Blacklist, Queue Callback, Queue Plus, Virtual Queues.
-		*1.0.21* Added Shift + click. Minimal Option. More module support.
-		*1.0.20* Added dropdown + categories.
-		*1.0.19* Added Recording modal and custom filename support.
-		*1.0.18* AJAX update (page does not reload) for dial plan + settings. Tabbed view.
-		*1.0.17* Added calendar matching for time conditions. Added Queue Priorities.
-		*1.0.16* Updated for issues raised. Added Start from a node, Check for Updates button, support for ext-tts.
-		*1.0.15* Moved module to dpviz
-		*1.0.14* Updated for ANY route. Updated for E.164 format. Added Highlighting. 
-		*1.0.13* Formatted module. Added Dynamic Routes. Big overhaul of code. 
-		*1.0.12* Added panzoom
-		*1.0.11* Updated name and email for Voicemail
-		*1.0.10* AdamV forked from abqcheeks/cpviz
-		*1.0.8* First fully working release
-		*1.0.0* First release, testing module creation 
+		*0.0.1* Initial fork created, files modified to differentiate Vizier from DPViz
 	</changelog>
 	<depends>
 		<module>recordings</module>
