@@ -10,7 +10,7 @@
   <category>Development</category>
   <description>Experimental fork of Dial Plan Visualizer</description>
 	<menuitems>
-		<dpviz>Vizier</dpviz>
+		<vizier>Vizier</vizier>
   </menuitems>
 	
   
