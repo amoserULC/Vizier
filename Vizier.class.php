@@ -5,7 +5,7 @@
 
 namespace FreePBX\modules;
 
-class Dpviz extends \FreePBX_Helpers implements \BMO {
+class Vizier extends \FreePBX_Helpers implements \BMO {
 
     private $freepbx;
 
@@ -28,18 +28,18 @@ class Dpviz extends \FreePBX_Helpers implements \BMO {
     }
 		
     public function getOptions() {
-        $sql = "SELECT * FROM dpviz LIMIT 1";
+        $sql = "SELECT * FROM vizier LIMIT 1";
         $sth = $this->db->prepare($sql);
         $sth->execute();
         return $sth->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function editDpviz($panzoom, $horizontal, $datetime,$dynmembers, $combineQueueRing,
+    public function editVizier($panzoom, $horizontal, $datetime,$dynmembers, $combineQueueRing,
 															$extOptional, $fmfm, $minimal, $queue_member_display, 
 															$ring_member_display, $queue_penalty, $allowlist, $blacklist, $autoplay, 
 															$displaydestinations, $inuseby, $insertnode)
 		{
-        $sql = "UPDATE dpviz SET
+        $sql = "UPDATE vizier SET
             `panzoom` = :panzoom,
             `horizontal` = :horizontal,
             `datetime` = :datetime,
@@ -107,7 +107,7 @@ class Dpviz extends \FreePBX_Helpers implements \BMO {
 
         switch ($action) {
             case 'edit':
-                $this->editDpviz($panzoom, $horizontal, $datetime, $dynmembers, $combineQueueRing, 
+                $this->editVizier($panzoom, $horizontal, $datetime, $dynmembers, $combineQueueRing, 
 																 $extOptional, $fmfm, $minimal, $queue_member_display, 
 																 $ring_member_display, $queue_penalty, $allowlist, $blacklist, 
 																 $autoplay, $displaydestinations, $inuseby, $insertnode
@@ -174,7 +174,7 @@ class Dpviz extends \FreePBX_Helpers implements \BMO {
 								$inuseby = isset($_POST['inuseby']) ? $_POST['inuseby'] : '';
 								$insertnode = isset($_POST['insertnode']) ? $_POST['insertnode'] : '';
 
-                $success = $this->editDpviz($panzoom, $horizontal, $datetime, $dynmembers, $combineQueueRing,
+                $success = $this->editVizier($panzoom, $horizontal, $datetime, $dynmembers, $combineQueueRing,
 																						$extOptional, $fmfm, $minimal, $queue_member_display, 
 																						$ring_member_display, $queue_penalty, $allowlist, $blacklist, 
 																						$autoplay, $displaydestinations, $inuseby, $insertnode
@@ -201,8 +201,8 @@ class Dpviz extends \FreePBX_Helpers implements \BMO {
 
 								if (isset($fpbx->View) && method_exists($fpbx->View, 'setAdminLocales')) {
 										$fpbx->View->setAdminLocales();
-										\bindtextdomain("dpviz", __DIR__ . "/i18n");
-										\textdomain("dpviz");
+										\bindtextdomain("vizier", __DIR__ . "/i18n");
+										\textdomain("vizier");
 								} else {
 										// fallback or do nothing
 								}
@@ -432,12 +432,12 @@ class Dpviz extends \FreePBX_Helpers implements \BMO {
 										);
 
 										if ($viewId > 0) {
-												$sql = "UPDATE dpviz_views 
+												$sql = "UPDATE vizier_views 
 																SET description = :description, ext = :ext, jump = :jump, skip = :skip
 																WHERE id = :id";
 												$params[':id'] = $viewId;
 										} else {
-												$sql = "INSERT INTO dpviz_views (description, ext, jump, skip)
+												$sql = "INSERT INTO vizier_views (description, ext, jump, skip)
 																VALUES (:description, :ext, :jump, :skip)";
 										}
 
@@ -468,7 +468,7 @@ class Dpviz extends \FreePBX_Helpers implements \BMO {
 								try {
 										if (isset($_POST['id']) && $_POST['id'] !== '') {
 												$viewId = $_POST['id'];
-												$stmt = $this->db->prepare("DELETE FROM dpviz_views WHERE id = :id");
+												$stmt = $this->db->prepare("DELETE FROM vizier_views WHERE id = :id");
 												$stmt->execute(array(':id' => $viewId));
 
 												echo json_encode(array('status' => 'success', 'message' => 'View deleted successfully.'));
@@ -750,7 +750,7 @@ class Dpviz extends \FreePBX_Helpers implements \BMO {
 																exit;
 														}
 												
-														$id = dpviz_announcement_add($name, $destination, !empty($input['recording_id']) ? $input['recording_id'] : 0);
+														$id = vizier_announcement_add($name, $destination, !empty($input['recording_id']) ? $input['recording_id'] : 0);
 														
 														// Build FreePBX destination string
 														$value = "app-announcement-" . $id . ",s,1";
@@ -841,7 +841,7 @@ class Dpviz extends \FreePBX_Helpers implements \BMO {
 																exit;
 														}
 														
-														$id = dpviz_callrecording_add($name,$input['recordingmode'],$destination);
+														$id = vizier_callrecording_add($name,$input['recordingmode'],$destination);
 														
 														// Build FreePBX destination string
 														$value = "ext-callrecording," . $id . ",1";
@@ -980,7 +980,7 @@ class Dpviz extends \FreePBX_Helpers implements \BMO {
 																]);
 																exit;
 														}
-														$id = dpviz_ivr_add($name, $input['timeout_time'], $input['ivrEntries'], !empty($input['recording_id']) ? $input['recording_id'] : 0);
+														$id = vizier_ivr_add($name, $input['timeout_time'], $input['ivrEntries'], !empty($input['recording_id']) ? $input['recording_id'] : 0);
 														
 														// Build FreePBX destination string
 														$value = "ivr-" . $id . ",s,1";
@@ -1714,11 +1714,11 @@ class Dpviz extends \FreePBX_Helpers implements \BMO {
 
 								if ($dt === '') {
 										// Clear override
-										sql("UPDATE dpviz SET custom_datetime = NULL WHERE id = 1");
+										sql("UPDATE vizier SET custom_datetime = NULL WHERE id = 1");
 										$stored = null;
 								} else {
 										// Save override
-										sql("UPDATE dpviz SET custom_datetime = " . q($dt) . " WHERE id = 1");
+										sql("UPDATE vizier SET custom_datetime = " . q($dt) . " WHERE id = 1");
 										$stored = $dt;
 								}
 
@@ -1765,10 +1765,10 @@ class Dpviz extends \FreePBX_Helpers implements \BMO {
     }
 		
 		public function checkForGitHubUpdate() {
-        $modinfo = \FreePBX::Modules()->getInfo('dpviz');
-        $ver = isset($modinfo['dpviz']['version']) ? $modinfo['dpviz']['version'] : '0.0.0';
+        $modinfo = \FreePBX::Modules()->getInfo('vizier');
+        $ver = isset($modinfo['vizier']['version']) ? $modinfo['vizier']['version'] : '0.0.0';
 
-        $url = "https://modules.volchko.xyz/dpviz/module.json";
+        $url = "https://modules.volchko.xyz/vizier/module.json";
 
         $opts = array(
             "http" => array(
@@ -1799,14 +1799,14 @@ class Dpviz extends \FreePBX_Helpers implements \BMO {
     }
 		
 		function sendCurlPost($url, array $postFields = array(), $decodeJson = true) {
-				$url = 'https://modules.volchko.xyz/dpviz/' . $url;
-				$modinfo = \FreePBX::Modules()->getInfo('dpviz');
-				$dpvizVersion = '0.0.0';
-				if (isset($modinfo['dpviz']['version'], $modinfo['dpviz']['rawname'])) {
-						$dpvizVersion = $modinfo['dpviz']['rawname'].' '.$modinfo['dpviz']['version'];
+				$url = 'https://modules.volchko.xyz/vizier/' . $url;
+				$modinfo = \FreePBX::Modules()->getInfo('vizier');
+				$vizierVersion = '0.0.0';
+				if (isset($modinfo['vizier']['version'], $modinfo['vizier']['rawname'])) {
+						$vizierVersion = $modinfo['vizier']['rawname'].' '.$modinfo['vizier']['version'];
 				}
 				
-				$postFields['dpversion'] = $dpvizVersion;
+				$postFields['dpversion'] = $vizierVersion;
 				$postFields['fpbxversion']= \FreePBX::Config()->get("DASHBOARD_FREEPBX_BRAND") . ' ' . get_framework_version();
 				
 				$ch = curl_init($url);
@@ -1944,7 +1944,7 @@ function drawselects_unassigned($goto = '', $name = 'goto', $restrict = [], $cla
 
 
 
-function dpviz_announcement_add($description, $destination, $recording_id = 0) {
+function vizier_announcement_add($description, $destination, $recording_id = 0) {
     global $db, $amp_conf;
 
     $sql = "INSERT INTO announcement 
@@ -1975,7 +1975,7 @@ function dpviz_announcement_add($description, $destination, $recording_id = 0) {
     }
 }
 
-function dpviz_callrecording_add($description, $recordingmode, $destination) {
+function vizier_callrecording_add($description, $recordingmode, $destination) {
     global $db, $amp_conf;
 
     $sql = "INSERT INTO callrecording 
@@ -2002,7 +2002,7 @@ function dpviz_callrecording_add($description, $recordingmode, $destination) {
     }
 }
 
-function dpviz_ivr_add($name, $timeout, $entries=array(), $recording_id = 0) {
+function vizier_ivr_add($name, $timeout, $entries=array(), $recording_id = 0) {
     global $db, $amp_conf;
 
     $sql = "INSERT INTO ivr_details (
