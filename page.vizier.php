@@ -8,9 +8,10 @@ $module = 'vizier';
 $info = \FreePBX::Modules()->getInfo($module);
 $version = $info[$module]['version'];
 ?>
-<link rel="stylesheet" href="modules/vizier/assets/css/select2.min.css"  />
-<!-- <link rel="stylesheet" href="modules/vizier/assets/css/vizier.css?load_version=</?php echo $version; ?>" /> -->
-<link rel="stylesheet" href="/modules/vizier/assets/css/vizier.css" />
+
+<!-- hacking around here to try to load the css and js with BMO/the right way -->
+<!-- <link rel="stylesheet" href="modules/vizier/assets/css/select2.min.css"  />
+<!-- <link rel="stylesheet" href="modules/vizier/assets/css/vizier.css?load_version=</?php echo $version; ?>" /-->
 
 <script src="modules/vizier/assets/js/html2canvas.min.js"></script>
 <script src="modules/vizier/assets/js/viz.min.js"></script>
