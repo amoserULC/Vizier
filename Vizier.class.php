@@ -84,7 +84,13 @@ class Vizier extends \FreePBX_Helpers implements \BMO {
         return $stmt->execute($insert);
     }
 
+	//This is apparantly the old way to handle this
+	//I'm adding in calls to load the css and js the right way with BMO
     public function doConfigPageInit($page) {
+		$this->addCss('assets/css/vizier.css');
+		$this->addCss('assets/css/select2.min.css');
+
+		
         $request = $_REQUEST;
         $action = isset($request['action']) ? $request['action'] : '';
         $panzoom = isset($request['panzoom']) ? $request['panzoom'] : '';
