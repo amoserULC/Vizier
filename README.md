@@ -21,6 +21,11 @@ Started: March 25, 2026 ACM
                 * dpviz.css
             * **js**
                 * dpviz.js
+                * inlineForms.js
+            * **views*
+                * options.php
+                    * The update and buy-me-a-coffee button were left alone for now
+                * toolbar.php
         * ANYWHERE ELSE
     * Figure out what the deal is with signed modules
         * I deleted the signature file out of desperation to move things forward. Could the weird loose publickey.asc be related to this?
