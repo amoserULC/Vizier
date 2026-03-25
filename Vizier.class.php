@@ -121,8 +121,9 @@ class Vizier extends \FreePBX_Helpers implements \BMO {
 				
 
 				//error_log(print_r($user,true));
-		$this->addCss('assets/css/vizier.css');
-		$this->addJs('assets/js/vizier.js');
+				// Use the global FreePBX BMO instance instead of $this
+		$this->freepbx->GuiHooks->addCss('assets/css/vizier.css');
+		$this->freepbx->GuiHooks->addJs('assets/js/vizier.js');
     }
 
     public function ajaxRequest($req, &$setting) {
